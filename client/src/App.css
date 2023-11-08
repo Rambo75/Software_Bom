@@ -1,0 +1,20 @@
+
+
+body {
+  margin: 0;
+  display: flex;
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  min-height: 100vh; /* Ensure the container takes at least the viewport height */
+}
+h1 {
+  display: flex;
+  justify-content: center;
+}
+.loading {
+  color: white;
+}
+
+
+
+
