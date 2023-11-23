@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import DataTable from "./components/DataTable";
-import SearchBar from "./components/SearchBar";
 import "./App.css";
+import DependencyTable from "./components/DependencyTable";
 // import NewDataTable from "./components/NewDataTable";
 
 function App() {
@@ -65,11 +65,8 @@ function App() {
         value={searchTerm}
         onChange={({ target }) => setSearchTerm(target.value)}
       />
-      <DataTable
-        className="data-table"
-        data={filterData}
-        onProjectClick={handleProjectClick}
-      />
+      className="data-table" data={filterData}
+      onProjectClick={handleProjectClick}
     </div>
   );
 }

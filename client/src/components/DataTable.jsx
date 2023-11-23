@@ -1,11 +1,9 @@
 import React, { useState } from "react";
 import DependencyTable from "./DependencyTable"; // Import the new component
+import { Link } from "react-router-dom";
 import "./DataTable.css";
 
-function DataTable({ data }) {
-  const [activeProject, setActiveProject] = useState(null);
-  const [extractedData, setExtractedData] = useState(null); // New state variable
-
+function DataTable() {
   const handleProjectClick = (project) => {
     setActiveProject(project);
     if (project) {
@@ -28,13 +26,11 @@ function DataTable({ data }) {
       return name; // Extract text within parentheses
     });
   };
+
   return (
     <div>
       {activeProject ? (
-        <DependencyTable
-          project={activeProject}
-          // onBackClick={handleBackClick}
-        />
+        <DependencyTable project={activeProject} />
       ) : (
         <table className="data-table">
           <thead>
@@ -57,12 +53,13 @@ function DataTable({ data }) {
                 <td>{index + 1}</td>
                 {/* Use index to generate ascending IDs */}
                 <td>
-                  <button
-                    onClick={() => handleProjectClick(item)}
+                  <Link
+                    to={`/dependency/${item.project_name}`}
                     className={`${activeProject === item ? "active" : ""}`}
+                    onClick={() => handleProjectClick(item)}
                   >
                     {item.project_name}
-                  </button>
+                  </Link>
                 </td>
 
                 <td>{item.date}</td>

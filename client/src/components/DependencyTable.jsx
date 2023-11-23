@@ -1,5 +1,6 @@
 import React from "react";
-import "./DataTable.css";
+import { useParams, Link } from "react-router-dom";
+
 import "./DependencyTable.css";
 
 function DependencyTable({ data, projectName }) {
@@ -16,6 +17,8 @@ function DependencyTable({ data, projectName }) {
     data.CommonServices.length,
     data.MaytronicsServices.length
   );
+
+  const { projectName } = useParams();
 
   return (
     <div className="table-container">
