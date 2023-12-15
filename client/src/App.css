@@ -10,12 +10,19 @@ body {
 h1 {
   display: flex;
   justify-content: center;
+  padding-top: 18rem;
 }
 .loading {
   color: white;
   padding-top: 20px;
 }
 
-
+.input {
+  display: flex;
+  padding: 12px;
+  border-radius: 8px;
+  margin: auto;
+  
+}
 
 

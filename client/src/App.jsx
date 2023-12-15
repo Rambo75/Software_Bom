@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import DataTable from "./components/DataTable";
-import "./App.css";
 import DependencyTable from "./components/DependencyTable";
-// import NewDataTable from "./components/NewDataTable";
+import SearchBar from "./components/SearchBar";
+import "./App.css";
 
 function App() {
   const [fetchedData, setFetchedData] = useState([]);
@@ -56,18 +57,34 @@ function App() {
   };
 
   return (
-    <div className="container">
-      <h1>Maytronics Robot Projects</h1>
-      <input
-        className="input"
-        type="text"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={({ target }) => setSearchTerm(target.value)}
-      />
-      className="data-table" data={filterData}
-      onProjectClick={handleProjectClick}
-    </div>
+    <Router>
+      <div className="container">
+        <h1>Maytronics Robot Projects</h1>
+        <input
+          className="input"
+          type="text"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={({ target }) => setSearchTerm(target.value)}
+        />
+        <Routes>
+          <Route
+            path="/"
+            element={
+              <DataTable
+                className="data-table"
+                data={filterData}
+                onProjectClick={handleProjectClick}
+              />
+            }
+          />
+          <Route
+            path="/dependency/:projectName"
+            element={<DependencyTable />}
+          />
+        </Routes>
+      </div>
+    </Router>
   );
 }
 

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-
+import "./SearchBar.css";
 function SearchBar(props) {
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -29,7 +29,7 @@ function SearchBar(props) {
   };
 
   return (
-    <div className="input-group mb-3">
+    <div className="input">
       <form onSubmit={handleSearchSubmit}>
         <input
           type="text"

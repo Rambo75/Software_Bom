@@ -1,21 +1,38 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import DependencyTable from "./DependencyTable"; // Import the new component
-import { Link } from "react-router-dom";
 import "./DataTable.css";
 
-function DataTable() {
+function DataTable({ data }) {
+  const navigate = useNavigate();
+  const [activeProject, setActiveProject] = useState(null);
+  const [extractedData, setExtractedData] = useState(null); // New state variable
+  const sortedData = [...data].sort(
+    (a, b) => new Date(b.date) - new Date(a.date)
+  );
+
   const handleProjectClick = (project) => {
     setActiveProject(project);
     if (project) {
-      setExtractedData(extractDependencies(project.dependencies));
+      const extractedData = extractDependencies(
+        project.dependencies,
+        project.version
+      );
+      console.log("Extracted Data:", extractedData);
+      // setExtractedData(
+      //   extractDependencies(project.dependencies, project.version)
+
+      setExtractedData(extractedData);
+      // navigate(`/dependency/${project.project_name}`);
     }
   };
 
-  const extractDependencies = (dependencies) => {
+  const extractDependencies = (dependencies, version) => {
     const extractedData = {
       BSP: extractArray(dependencies.BSP),
       CommonServices: extractArray(dependencies.CommonServices),
       MaytronicsServices: extractArray(dependencies.MaytronicsServices),
+      version: version,
     };
     return extractedData;
   };
@@ -26,11 +43,13 @@ function DataTable() {
       return name; // Extract text within parentheses
     });
   };
-
   return (
     <div>
       {activeProject ? (
-        <DependencyTable project={activeProject} />
+        <DependencyTable
+          project={activeProject}
+          // onBackClick={handleBackClick}
+        />
       ) : (
         <table className="data-table">
           <thead>
@@ -48,18 +67,17 @@ function DataTable() {
             </tr>
           </thead>
           <tbody>
-            {data.map((item, index) => (
+            {sortedData.map((item, index) => (
               <tr key={item.id}>
                 <td>{index + 1}</td>
                 {/* Use index to generate ascending IDs */}
                 <td>
-                  <Link
-                    to={`/dependency/${item.project_name}`}
-                    className={`${activeProject === item ? "active" : ""}`}
+                  <button
                     onClick={() => handleProjectClick(item)}
+                    className={`${activeProject === item ? "active" : ""}`}
                   >
                     {item.project_name}
-                  </Link>
+                  </button>
                 </td>
 
                 <td>{item.date}</td>
